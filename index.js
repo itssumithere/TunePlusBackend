@@ -44,8 +44,11 @@ app.use(bodyParser.json({ limit: '200mb' })); // Adjust based on your dataset si
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
 
 dotenv.config();
+const cors = require("cors");
 app.use(cors({
-  origin: '*'
+  origin: "https://tuneplusbackend.onrender.com", // Use your frontend Render URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 
 
