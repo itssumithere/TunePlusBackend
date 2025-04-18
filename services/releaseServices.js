@@ -658,7 +658,7 @@ release.updateStatus = async (req, res, next) => {
             <body>
               <div class="container">
                 <div class="header">
-                  <img src="https://ibb.co/frP3bq5" alt="Company Logo">
+                  <img src="https://res.cloudinary.com/dh2izd0iu/image/upload/v1744977813/lc4ibi7ama2ff5udzvwn.png" alt="Company Logo">
                 </div>
                 <div class="content">
                   <p>Hello,</p>
@@ -751,7 +751,7 @@ release.updateStatus = async (req, res, next) => {
             <body>
             <div class="container">
                 <div class="header">
-                <img src="https://ibb.co/frP3bq5" alt="Company Logo">
+                <img src="https://res.cloudinary.com/dh2izd0iu/image/upload/v1744977813/lc4ibi7ama2ff5udzvwn.png" alt="Company Logo">
                 </div>
                 <div class="content">
                 <p>Hello,</p>
