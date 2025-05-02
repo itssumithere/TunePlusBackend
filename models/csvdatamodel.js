@@ -15,6 +15,11 @@ const TrackSchema = new mongoose.Schema({
   Quantity: {
     type: Number, // Account holder name should not be empty
     trim: true,
+  },
+  Excel: {
+    type: String, // Account holder name should not be empty
+    trim: true,
+    default: ""
   }
 }, { timestamps: true }); // Adds createdAt and updatedAt fields
 
@@ -64,8 +69,8 @@ Track.delete = async (userId) => {
     const result = await db.connectDb("Track", TrackSchema);
     console.log(">>>>>>>", userId);
 
-    let query = { userId: userId }; 
-    let storeData = await result.deleteMany(query); 
+    let query = { userId: userId };
+    let storeData = await result.deleteMany(query);
 
     if (storeData.deletedCount <= 0) {
       return false; // Nothing was deleted
@@ -77,6 +82,33 @@ Track.delete = async (userId) => {
     return false; // Return false in case of an error
   }
 };
+
+Track.update = async (trackId, updateData) => {
+  try {
+    const model = await db.connectDb("Track", TrackSchema);
+
+    // Ensure updateData is an object
+    if (typeof updateData !== 'object' || Array.isArray(updateData)) {
+      throw new Error("Update data must be a valid object");
+    }
+
+    const updatedTrack = await model.findOneAndUpdate(
+      { _id: trackId, }, // Match by track ID and user ID
+      { $set: updateData },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedTrack) {
+      return false; // No document found or updated
+    }
+
+    return updatedTrack;
+  } catch (error) {
+    console.error("Track.update error:", error);
+    return false;
+  }
+};
+
 
 const Store = {}
 
@@ -92,6 +124,11 @@ const StoreSchema = new mongoose.Schema({
   Quantity: {
     type: Number, // Account holder name should not be empty
     trim: true,
+  },
+  Excel: {
+    type: String, // Account holder name should not be empty
+    trim: true,
+    default: ""
   }
 }, { timestamps: true }); // Adds createdAt and updatedAt fields
 
@@ -150,8 +187,8 @@ Store.delete = async (userId) => {
     const result = await db.connectDb("Store", StoreSchema);
     console.log(">>>>>>>", userId);
 
-    let query = { userId: userId }; 
-    let storeData = await result.deleteMany(query); 
+    let query = { userId: userId };
+    let storeData = await result.deleteMany(query);
 
     if (storeData.deletedCount <= 0) {
       return false; // Nothing was deleted
@@ -164,6 +201,31 @@ Store.delete = async (userId) => {
   }
 };
 
+Store.update = async (storeId, updateData) => {
+  try {
+    const model = await db.connectDb("Store", StoreSchema);
+
+    // Ensure updateData is an object
+    if (typeof updateData !== 'object' || Array.isArray(updateData)) {
+      throw new Error("Update data must be a valid object");
+    }
+
+    const updatedStore = await model.findOneAndUpdate(
+      { _id: storeId, }, // Match by Store ID and user ID
+      { $set: updateData },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedStore) {
+      return false; // No document found or updated
+    }
+
+    return updatedStore;
+  } catch (error) {
+    console.error("Store.update error:", error);
+    return false;
+  }
+};
 
 
 
@@ -201,6 +263,11 @@ const MarketSchema = new mongoose.Schema({
   Quantity: {
     type: Number, // Account holder name should not be empty
     trim: true,
+  },
+  Excel: {
+    type: String, // Account holder name should not be empty
+    trim: true,
+    default: ""
   }
 }, { timestamps: true }); // Adds createdAt and updatedAt fields
 
@@ -259,8 +326,8 @@ Market.delete = async (userId) => {
     const result = await db.connectDb("Market", MarketSchema);
     console.log(">>>>>>>", userId);
 
-    let query = { userId: userId }; 
-    let storeData = await result.deleteMany(query); 
+    let query = { userId: userId };
+    let storeData = await result.deleteMany(query);
 
     if (storeData.deletedCount <= 0) {
       return false; // Nothing was deleted
@@ -270,6 +337,32 @@ Market.delete = async (userId) => {
   } catch (error) {
     console.error("Error deleting store:", error);
     return false; // Return false in case of an error
+  }
+};
+
+Market.update = async (marketId, updateData) => {
+  try {
+    const model = await db.connectDb("Market", MarketSchema);
+
+    // Ensure updateData is an object
+    if (typeof updateData !== 'object' || Array.isArray(updateData)) {
+      throw new Error("Update data must be a valid object");
+    }
+
+    const updatedMarket = await model.findOneAndUpdate(
+      { _id: marketId, }, // Match by Market ID and user ID
+      { $set: updateData },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedMarket) {
+      return false; // No document found or updated
+    }
+
+    return updatedMarket;
+  } catch (error) {
+    console.error("Market.update error:", error);
+    return false;
   }
 };
 
@@ -364,6 +457,11 @@ const salesSchemaYoutube = new mongoose.Schema({
   YouTubeClaimType: {
     type: String,
 
+  },
+  Excel: {
+    type: String, // Account holder name should not be empty
+    trim: true,
+    default: ""
   }
 }, {
   timestamps: true,  // Optional: to automatically add createdAt and updatedAt fields
@@ -430,8 +528,8 @@ salesYoutube.delete = async (userId) => {
     const result = await db.connectDb("SalesYoutube", salesModel);
     console.log(">>>>>>>", userId);
 
-    let query = { userId: userId }; 
-    let storeData = await result.deleteMany(query); 
+    let query = { userId: userId };
+    let storeData = await result.deleteMany(query);
 
     if (storeData.deletedCount <= 0) {
       return false; // Nothing was deleted
@@ -441,6 +539,32 @@ salesYoutube.delete = async (userId) => {
   } catch (error) {
     console.error("Error deleting store:", error);
     return false; // Return false in case of an error
+  }
+};
+
+salesYoutube.update = async (salesYoutubeId, updateData) => {
+  try {
+    const model = await db.connectDb("salesYoutube", salesModel);
+
+    // Ensure updateData is an object
+    if (typeof updateData !== 'object' || Array.isArray(updateData)) {
+      throw new Error("Update data must be a valid object");
+    }
+
+    const updatedSalesYoutube = await model.findOneAndUpdate(
+      { _id: salesYoutubeId, }, // Match by salesYoutube ID and user ID
+      { $set: updateData },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedSalesYoutube) {
+      return false; // No document found or updated
+    }
+
+    return updatedSalesYoutube;
+  } catch (error) {
+    console.error("salesYoutube.update error:", error);
+    return false;
   }
 };
 
@@ -552,6 +676,11 @@ const salesSchemaAssets = new mongoose.Schema({
   AudioFormat: {
     type: String,
     default: '',  // Assuming empty string is allowed for this field
+  },
+  Excel: {
+    type: String, // Account holder name should not be empty
+    trim: true,
+    default: ""
   }
 }, {
   timestamps: true,  // Optional: to automatically add createdAt and updatedAt fields
@@ -613,8 +742,8 @@ salesAssets.delete = async (userId) => {
     const result = await db.connectDb("SalesAssets", salesSchemaAssets);
     console.log(">>>>>>>", userId);
 
-    let query = { userId: userId }; 
-    let storeData = await result.deleteMany(query); 
+    let query = { userId: userId };
+    let storeData = await result.deleteMany(query);
 
     if (storeData.deletedCount <= 0) {
       return false; // Nothing was deleted
@@ -624,6 +753,32 @@ salesAssets.delete = async (userId) => {
   } catch (error) {
     console.error("Error deleting store:", error);
     return false; // Return false in case of an error
+  }
+};
+
+salesAssets.update = async (salesAssetsId, updateData) => {
+  try {
+    const model = await db.connectDb("SalesAssets", salesSchemaAssets);
+
+    // Ensure updateData is an object
+    if (typeof updateData !== 'object' || Array.isArray(updateData)) {
+      throw new Error("Update data must be a valid object");
+    }
+
+    const updatedSalesAssets = await model.findOneAndUpdate(
+      { _id: salesAssetsId, }, // Match by Market ID and user ID
+      { $set: updateData },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedSalesAssets) {
+      return false; // No document found or updated
+    }
+
+    return updatedSalesAssets;
+  } catch (error) {
+    console.error("Market.update error:", error);
+    return false;
   }
 };
 
@@ -648,6 +803,11 @@ const dataStream = new mongoose.Schema({
   streams: {
     type: Number,  // Number of streams
   },
+  Excel: {
+    type: String, // Account holder name should not be empty
+    trim: true,
+    default: ""
+  }
 }, {
   timestamps: true // Automatically adds createdAt and updatedAt timestamps
 });
@@ -711,8 +871,8 @@ stream.delete = async (userId) => {
     const result = await db.connectDb("stream", dataStream);
     console.log(">>>>>>>", userId);
 
-    let query = { userId: userId }; 
-    let storeData = await result.deleteMany(query); 
+    let query = { userId: userId };
+    let storeData = await result.deleteMany(query);
 
     if (storeData.deletedCount <= 0) {
       return false; // Nothing was deleted
@@ -722,6 +882,32 @@ stream.delete = async (userId) => {
   } catch (error) {
     console.error("Error deleting store:", error);
     return false; // Return false in case of an error
+  }
+};
+
+stream.update = async (streamId, updateData) => {
+  try {
+    const model = await db.connectDb("stream", dataStream);
+
+    // Ensure updateData is an object
+    if (typeof updateData !== 'object' || Array.isArray(updateData)) {
+      throw new Error("Update data must be a valid object");
+    }
+
+    const updatedStream = await model.findOneAndUpdate(
+      { _id: streamId, }, // Match by Market ID and user ID
+      { $set: updateData },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedStream) {
+      return false; // No document found or updated
+    }
+
+    return updatedStream;
+  } catch (error) {
+    console.error("Market.update error:", error);
+    return false;
   }
 };
 
@@ -739,11 +925,11 @@ const insidiesSchema = new mongoose.Schema({
   Artist: {
     type: String,
   },
-  ISRC :{
+  ISRC: {
     type: String,
   },
-  Label:{
-    type:String
+  Label: {
+    type: String
   },
   Streams: {
     type: Number,
@@ -757,7 +943,7 @@ const insidiesSchema = new mongoose.Schema({
 
 const insidesModel = mongoose.model('insides', insidiesSchema);
 
-insides.create = async (userId,data) => {
+insides.create = async (userId, data) => {
   const result = db.connectDb("insides", insidiesSchema);
   data["userId"] = userId;
   const data1 = new insidesModel(data);
@@ -817,8 +1003,8 @@ insides.delete = async (userId) => {
     const result = await db.connectDb("insides", insidiesSchema);
     console.log(">>>>>>>", userId);
 
-    let query = { userId: userId }; 
-    let storeData = await result.deleteMany(query); 
+    let query = { userId: userId };
+    let storeData = await result.deleteMany(query);
 
     if (storeData.deletedCount <= 0) {
       return false; // Nothing was deleted

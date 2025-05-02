@@ -10,13 +10,15 @@ const cron = require('node-cron');
 const authRoutes = require("./routes/auth.routes")
 const releaseRoutes = require("./routes/release.routes");
 const artistRoutes = require("./routes/artist.routes");
-const supportRoutes = require("./routes/support.routes"); 
+const supportRoutes = require("./routes/support.routes");
 const bankRoutes = require("./routes/bank.routes");
 const walletRoutes = require("./routes/wallet.route");
 const permissionsRoutes = require("./routes/permission.routes");
 const importExcel = require("./routes/importExcel.routes");
 const companyRoutes = require("./routes/company.routes");
-const dashboardRoutes= require("./routes/dashboard.route");
+const dashboardRoutes = require("./routes/dashboard.route");
+const settingRoutes = require("./routes/setting.routes");
+const uploadRoutes = require("./routes/upload.routes")
 const bodyParser = require('body-parser');
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -56,11 +58,12 @@ app.use("/release", releaseRoutes);
 app.use("/artist", artistRoutes);
 app.use("/support", supportRoutes);
 app.use("/bank", bankRoutes);
-app.use("/wallet", walletRoutes); 
-app.use("/permission",permissionsRoutes);
-app.use("/excel",importExcel);
+app.use("/wallet", walletRoutes);
+app.use("/permission", permissionsRoutes);
+app.use("/excel", importExcel);
 app.use("/dashboard", dashboardRoutes);
-
+app.use("/setting", settingRoutes);
+app.use("/upload", uploadRoutes)
 
 
 const server = new http.createServer({}, app);
