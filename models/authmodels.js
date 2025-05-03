@@ -119,8 +119,8 @@ authModel.forgetPassword = async (key, email) => {
     let check = {};
     check[key] = email;
     const result = await db.connectDb("users", usersSchema);
-    let val = await result.findOne({email: email});
-    console.log('>>>>>>',val);
+    let val = await result.findOne({ email: email });
+    console.log('>>>>>>', val);
     if (!val) {
         return false
     }
@@ -315,7 +315,7 @@ authModel.permission = async (data) => {
             artist: data.artist,
             pricePercentage: data.pricePercentage,
             clientNumber: Math.floor(10000000 + Math.random() * 90000000)
-            
+
         });
         console.log("user>>>>>>>>>>>>", user);
         releaseModel.addUserlabel(data.label, user._id);
@@ -403,6 +403,22 @@ authModel.getEmail = async (id) => {
     let val = await result.findOne({ _id: mongoose.Types.ObjectId(id) });
     return val.email;
 }
+authModel.updateWallet = async (userId, amount) => {
+    const result = await db.connectDb("users", usersSchema);
+    
+    // No need to fetch the current value when using $inc
+    const updatedUser = await result.findOneAndUpdate(
+        { _id: userId },
+        { $inc: { wallet: amount } }, // Simply increment by the amount
+        { new: true, projection: { __v: 0 } }
+    );
+    
+    if (updatedUser) {
+        return true;
+    } else {
+        return false;
+    }
+};
 
 // authModel.findAdminByRole = async(email, password) => {
 //     let findadmin = await db.connectDb("usersSchemas",usersSchema)

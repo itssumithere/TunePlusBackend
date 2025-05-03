@@ -19,6 +19,7 @@ const companyRoutes = require("./routes/company.routes");
 const dashboardRoutes = require("./routes/dashboard.route");
 const settingRoutes = require("./routes/setting.routes");
 const uploadRoutes = require("./routes/upload.routes")
+const reportRoutes = require("./routes/report.routes")
 const bodyParser = require('body-parser');
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -64,6 +65,8 @@ app.use("/excel", importExcel);
 app.use("/dashboard", dashboardRoutes);
 app.use("/setting", settingRoutes);
 app.use("/upload", uploadRoutes)
+app.use("/report", reportRoutes)
+
 
 
 const server = new http.createServer({}, app);

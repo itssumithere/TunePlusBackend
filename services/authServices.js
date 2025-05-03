@@ -316,6 +316,9 @@ auth.getSingleUser = async (req, res, next) => {
             phoneNumber: user._doc.phoneNumber,
             postalAddress: user._doc.postalAddress,
             postalCode: user._doc.postalCode,
+            wallet: user._doc.wallet,
+
+
 
             bankDetails: {
                 bankName: bank?.bankName || null,
@@ -488,6 +491,27 @@ auth.verifyOtp = async (req, res, next) => {
         next(error);
     }
 };
+
+auth.walletUpdate = async (req, res, next) => {
+    try {
+        let {amount, userId} = req.body;
+        
+        if (amount > 0 ) {
+            const profileData = authModel.updateWallet(userId, amount);
+
+          if(!profileData) {
+            return R(res, false, "Amount is required", {}, 400);    
+          }
+          return R(res, true, "Wallet updated successfully", profileData, 200);
+        } else {
+            return R(res, false, "Amount is required", {}, 400);
+        }
+    }
+
+    catch (error) {
+        next(error);
+    }
+}
 
 
 auth.profileUpdate = async (req, res, next) => {

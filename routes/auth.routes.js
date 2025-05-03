@@ -6,18 +6,18 @@ const { loginValidation, signUpValidation, forgotPasswordValidation, otpSendVali
 // const flashService = require("../services/flashMessageService"); 
 
 router.post('/signup', authService.signUp)
-router.post('/login',authService.login)
-router.post('/forgetpassword',authService.forgetPassword)
-router.post('/setPassword',authService.setPassword)
-router.post('/verifyOtp',authService.verifyOtp)
-router.get('/user-profile',verifyToken, authService.getUsers)
-router.post('/get-user',verifyToken,authService.getSingleUser)
-router.post('/user-change-password',verifyToken,authService.passwordChange)
-router.post('/profile-update',verifyToken,authService.profileUpdate)
-router.post('/user-delete',verifyToken,authService.is_deleted);
-router.get('/user-list',verifyToken,authService.userList);
-router.post('/user-permanentdelete',verifyToken,authService.userDelete);
-
+router.post('/login', authService.login)
+router.post('/forgetpassword', authService.forgetPassword)
+router.post('/setPassword', authService.setPassword)
+router.post('/verifyOtp', authService.verifyOtp)
+router.get('/user-profile', verifyToken, authService.getUsers)
+router.post('/get-user', verifyToken, authService.getSingleUser)
+router.post('/user-change-password', verifyToken, authService.passwordChange)
+router.post('/profile-update', verifyToken, authService.profileUpdate)
+router.post('/user-delete', verifyToken, authService.is_deleted);
+router.get('/user-list', verifyToken, authService.userList);
+router.post('/user-permanentdelete', verifyToken, authService.userDelete);
+router.post('/walletUpdate', verifyToken, authService.walletUpdate);
 
 // router.post('/get-otp',otpSendValidation, authService.getOtpForMobileAndEmail)
 // router.post("/verifyOtp",otpVerifyValidation, authService.verifyOtp)
