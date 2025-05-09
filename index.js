@@ -51,8 +51,7 @@ app.use(cors({
   origin: '*'
 }));
 
-
-// app.use("/dashboard", dashboardRoutes)
+ 
 app.use("/auth", authRoutes);
 app.use("/company", companyRoutes);
 app.use("/release", releaseRoutes);

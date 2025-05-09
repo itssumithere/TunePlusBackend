@@ -17,6 +17,6 @@ const upload = multer({
     storage,
 })
 
-router.post('/excel', upload.single('file'), uploadServices.uploadExcel)
-
+router.post('/excel', upload.single('file'), uploadServices.uploadExcel);
+router.post('/reportExcel', upload.single('file'), uploadServices.reportUploadExcel);
 module.exports = router 
